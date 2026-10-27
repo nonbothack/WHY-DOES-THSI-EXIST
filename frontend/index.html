@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusContact // C Singly Linked List Terminal Engine</title>
+    <!-- Monospace & Retro Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="crt-body">
+    <!-- Subtle CRT Scanline & Screen Vignette Overlay -->
+    <div class="crt-scanlines" aria-hidden="true"></div>
+    <div class="crt-vignette" aria-hidden="true"></div>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation: Retro Cyber Control Panel -->
+        <aside class="sidebar" id="sidebar">
+            <div class="brand-container">
+                <div class="brand-badge-row">
+                    <span class="terminal-prefix">&gt; SYS_INIT:</span>
+                    <span class="brand-kernel">C99_POSIX</span>
+                </div>
+                <div class="brand-main">
+                    <div class="brand-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                            <polyline points="7 8 10 10 7 12"></polyline>
+                            <line x1="12" y1="12" x2="16" y2="12"></line>
+                        </svg>
+                    </div>
+                    <div class="brand-text">
+                        <h2>NEXUS//CONTACT</h2>
+                        <span class="badge-engine">SLL_HEAP_CORE</span>
+                    </div>
+                </div>
+                <div class="brand-subline">
+                    <span class="status-indicator"></span>
+                    <span class="brand-status-text">RUNNING ON LOCALHOST:8080</span>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">// SYSTEM NAVIGATION</div>
+                
+                <button class="nav-item active" id="nav-contacts" onclick="switchView('contacts')">
+                    <span class="nav-num">01</span>
+                    <svg class="nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <span class="nav-label">CONTACT DATABASE</span>
+                    <span class="nav-arrow">&gt;</span>
+                </button>
+
+                <button class="nav-item" id="nav-visualizer" onclick="switchView('visualizer')">
+                    <span class="nav-num">02</span>
+                    <svg class="nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="7" width="6" height="10" rx="1"></rect>
+                        <rect x="16" y="7" width="6" height="10" rx="1"></rect>
+                        <path d="M8 12h8"></path>
+                        <path d="M13 9l3 3-3 3"></path>
+                    </svg>
+                    <span class="nav-label">HEAP INSPECTOR</span>
+                    <span class="nav-arrow">&gt;</span>
+                </button>
+
+                <button class="nav-item" id="nav-architecture" onclick="switchView('architecture')">
+                    <span class="nav-num">03</span>
+                    <svg class="nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                    <span class="nav-label">SYSTEM SPEC &amp; ARCH</span>
+                    <span class="nav-arrow">&gt;</span>
+                </button>
+            </nav>
+
+            <!-- Memory Diagnostics Footprint: Retro Hardware Gauge -->
+            <div class="sidebar-footer">
+                <div class="terminal-panel-box">
+                    <div class="panel-box-header">
+                        <span class="pulse-indicator"></span>
+                        <span class="panel-box-title">HEAP MONITOR</span>
+                    </div>
+                    <div class="panel-box-body font-mono">
+                        <div class="telemetry-row">
+                            <span class="telemetry-lbl">STRUCT:</span>
+                            <span class="telemetry-val text-green">struct Contact</span>
+                        </div>
+                        <div class="telemetry-row">
+                            <span class="telemetry-lbl">NODE_SZ:</span>
+                            <span class="telemetry-val text-amber">144 Bytes</span>
+                        </div>
+                        <div class="telemetry-row">
+                            <span class="telemetry-lbl">LINK_PTR:</span>
+                            <span class="telemetry-val text-cyan">64-bit Hex</span>
+                        </div>
+                        <div class="telemetry-row">
+                            <span class="telemetry-lbl">FILE_SYNC:</span>
+                            <span class="telemetry-val text-white">contacts.csv</span>
+                        </div>
+                    </div>
+                    <div class="panel-box-footer">
+                        <span>ZERO EXTERNAL LIBS</span>
+                    </div>
+                </div>
+                
+                <div class="terminal-version-tag">
+                    <span>NEXUS.SYS v2.6.4</span>
+                    <span class="blink-cursor">_</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area: Retro Cyber Terminal Workstation -->
+        <main class="main-content">
+            <!-- Top App Bar / System Command Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="mobile-toggle-btn" id="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle Navigation">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <div class="header-titles">
+                        <div class="header-breadcrumb font-mono">
+                            <span class="breadcrumb-prefix">ROOT/CORE/</span>
+                            <span class="active-crumb" id="breadcrumb-current">CONTACT DATABASE</span>
+                            <span class="breadcrumb-tag">[SECURE_SESSION]</span>
+                        </div>
+                        <h1 id="view-title">CONTACT DATABASE</h1>
+                    </div>
+                </div>
+
+                <div class="header-actions">
+                    <div class="live-status-pill font-mono">
+                        <span class="status-dot"></span>
+                        <span id="status-text">C ENGINE ONLINE</span>
+                    </div>
+
+                    <button class="btn btn-secondary" id="btn-sort" onclick="sortContactsInC()" title="Executes in-place Bubble Sort directly in C backend">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="4" y1="6" x2="11" y2="6"></line>
+                            <line x1="4" y1="12" x2="11" y2="12"></line>
+                            <line x1="4" y1="18" x2="13" y2="18"></line>
+                            <polyline points="15 9 18 6 21 9"></polyline>
+                            <line x1="18" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                        <span>[▼] SORT A-Z</span>
+                    </button>
+
+                    <button class="btn btn-primary" id="btn-open-add" onclick="openAddModal()">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        <span>[+] NEW CONTACT</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- 1. Contacts Directory View -->
+            <section id="view-contacts-container" class="view-section">
+                <!-- Retro Cyber Statistics Display -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-top-bar">
+                            <span class="stat-index">01 //</span>
+                            <span class="stat-title">TOTAL NODES</span>
+                        </div>
+                        <div class="stat-metric-row">
+                            <span class="stat-value font-mono text-green" id="stat-total-contacts">0</span>
+                            <span class="stat-unit">NODES</span>
+                        </div>
+                        <div class="stat-footer-bar font-mono">
+                            <span class="stat-tag tag-green">DYNAMIC HEAP</span>
+                            <span class="stat-desc">malloc(144B)</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top-bar">
+                            <span class="stat-index">02 //</span>
+                            <span class="stat-title">HEAD POINTER</span>
+                        </div>
+                        <div class="stat-metric-row">
+                            <span class="stat-value font-mono text-amber" id="stat-head-pointer">0x00000000</span>
+                        </div>
+                        <div class="stat-footer-bar font-mono">
+                            <span class="stat-tag tag-amber">ENTRY REGISTER</span>
+                            <span class="stat-desc">Head node pointer</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top-bar">
+                            <span class="stat-index">03 //</span>
+                            <span class="stat-title">SEARCH MATCHES</span>
+                        </div>
+                        <div class="stat-metric-row">
+                            <span class="stat-value font-mono text-cyan" id="stat-search-results">0</span>
+                            <span class="stat-unit">RECORDS</span>
+                        </div>
+                        <div class="stat-footer-bar font-mono">
+                            <span class="stat-tag tag-cyan">LIVE FILTER</span>
+                            <span class="stat-desc">strcasecmp() C</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top-bar">
+                            <span class="stat-index">04 //</span>
+                            <span class="stat-title">EST. MEMORY</span>
+                        </div>
+                        <div class="stat-metric-row">
+                            <span class="stat-value font-mono text-white" id="stat-memory-usage">0 Bytes</span>
+                        </div>
+                        <div class="stat-footer-bar font-mono">
+                            <span class="stat-tag tag-magenta">ACTIVE BYTES</span>
+                            <span class="stat-desc">144B × Node Count</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table Card Container: Retro Terminal Console -->
+                <div class="card table-card">
+                    <div class="terminal-bar-top">
+                        <div class="terminal-bar-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="terminal-bar-title font-mono">NODE_REGISTER_TABLE // SINGLY_LINKED_LIST_PAYLOADS</div>
+                        <div class="terminal-bar-meta font-mono">AUTOSYNC: ON</div>
+                    </div>
+
+                    <!-- Terminal Command Field Toolbar -->
+                    <div class="card-toolbar">
+                        <div class="search-box">
+                            <span class="search-prompt font-mono">SYS:QUERY$&nbsp;</span>
+                            <input type="text" id="input-search" placeholder="Type name, phone, or #ID to scan list..." oninput="handleSearch(this.value)">
+                            <div class="search-shortcut font-mono">[/]</div>
+                            <button id="btn-clear-search" class="btn-clear font-mono" onclick="clearSearch()" style="display:none;" title="Clear search query">&times;</button>
+                        </div>
+
+                        <div class="toolbar-actions">
+                            <button class="btn btn-outline" onclick="fetchContacts()" title="Sync and refresh list from C backend">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="23 4 23 10 17 10"></polyline>
+                                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                                </svg>
+                                <span>[↻] SYNC_CSV</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Contact Table -->
+                    <div class="table-responsive">
+                        <table class="contact-table" id="contact-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 110px;">// NODE_ID</th>
+                                    <th>// CONTACT_NAME</th>
+                                    <th>// PHONE_NUMBER</th>
+                                    <th>// ELECTRONIC_MAIL</th>
+                                    <th style="width: 140px; text-align: right;">// COMMANDS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contact-tbody">
+                                <!-- Populated dynamically by JavaScript -->
+                            </tbody>
+                        </table>
+
+                        <!-- Retro Empty State -->
+                        <div id="empty-state" class="empty-state" style="display: none;">
+                            <div class="empty-terminal-frame font-mono">
+                                <div class="empty-ascii-box">
+                                    +-----------------------------------------+<br>
+                                    |&nbsp;&nbsp;[!] ERR_404: EMPTY LINKED LIST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
+                                    |&nbsp;&nbsp;HEAP_PTR: (struct Contact*) NULL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
+                                    |&nbsp;&nbsp;ALLOCATED_NODES: 0 (0 BYTES)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
+                                    +-----------------------------------------+
+                                </div>
+                                <h3>NO CONTACT NODES IN MEMORY</h3>
+                                <p id="empty-state-message">The Singly Linked List is currently empty (Head == NULL). Allocate the first contact block on the C heap.</p>
+                                <div class="empty-actions">
+                                    <button class="btn btn-primary" onclick="openAddModal()">[+] ALLOCATE FIRST NODE</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Linked List Memory Visualizer View -->
+            <section id="view-visualizer-container" class="view-section" style="display: none;">
+                <div class="card visualizer-card">
+                    <div class="terminal-bar-top">
+                        <div class="terminal-bar-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="terminal-bar-title font-mono">HEAP_MEMORY_INSPECTOR // VIRTUAL_ADDRESS_TOPOLOGY</div>
+                        <div class="terminal-bar-meta font-mono">ALIGNMENT: 8-BYTE</div>
+                    </div>
+
+                    <div class="visualizer-header-panel">
+                        <div>
+                            <h2>HEAP MEMORY INSPECTOR</h2>
+                            <p class="text-secondary font-mono">Live architectural visualization of dynamic heap blocks, simulated 64-bit address registers, and forward pointers.</p>
+                        </div>
+                        <button class="btn btn-outline" onclick="renderVisualizer()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 4 23 10 17 10"></polyline>
+                                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                            </svg>
+                            <span>[↻] RESCAN HEAP</span>
+                        </button>
+                    </div>
+
+                    <div class="card-body">
+                        <!-- Visualizer Interactive Memory Chain -->
+                        <div class="visualizer-scroll-wrapper">
+                            <div class="visualizer-container font-mono" id="visualizer-chain">
+                                <!-- Visualizer nodes rendered dynamically by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Technical Topology Legend -->
+                        <div class="visualizer-legend font-mono">
+                            <div class="legend-item">
+                                <span class="legend-chip head">HEAD_PTR</span>
+                                <span>Entry pointer register storing address of node 0</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-chip node">NODE_BLOCK</span>
+                                <span>144-Byte dynamic chunk allocated via malloc()</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-chip pointer">*next POINTER</span>
+                                <span>64-bit pointer pointing to subsequent heap block</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-chip null">NULL (0x0)</span>
+                                <span>Terminal boundary marker signifying end of list</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Technical Architecture & Spec View -->
+            <section id="view-architecture-container" class="view-section" style="display: none;">
+                <div class="spec-grid">
+                    <!-- Memory Structure Schematic -->
+                    <div class="card spec-card">
+                        <div class="terminal-bar-top">
+                            <div class="terminal-bar-dots"><span class="dot green"></span></div>
+                            <div class="terminal-bar-title font-mono">SPEC_01 // C_NODE_MEMORY_LAYOUT</div>
+                        </div>
+                        <div class="card-header">
+                            <h2>Memory Model &amp; Node Representation</h2>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-secondary">Every contact record is allocated at runtime via <code>malloc(sizeof(struct Contact))</code>. Nodes are chained strictly via a 64-bit forward pointer.</p>
+                            
+                            <pre class="code-block font-mono"><code>/* Exact C99 Node Memory Blueprint */
+struct Contact {
+    int id;                 /*   4 Bytes  [Offset: 0x00] Unique record index */
+    char name[50];          /*  50 Bytes  [Offset: 0x04] Contact full name */
+    char phone[20];         /*  20 Bytes  [Offset: 0x36] Preserves leading zeroes */
+    char email[60];         /*  60 Bytes  [Offset: 0x4A] Optional email string */
+    /* 2 Bytes compiler alignment padding to 8-byte boundary */
+    struct Contact *next;   /*   8 Bytes  [Offset: 0x88] 64-bit forward pointer */
+};
+/* Total struct size: 144 Bytes (verified with sizeof on x86_64) */</code></pre>
+
+                            <div class="byte-map-container font-mono">
+                                <div class="byte-segment id">id [4B]</div>
+                                <div class="byte-segment name">name[50] [50B]</div>
+                                <div class="byte-segment phone">phone[20] [20B]</div>
+                                <div class="byte-segment email">email[60] [60B]</div>
+                                <div class="byte-segment pad">pad[2B]</div>
+                                <div class="byte-segment next">*next [8B]</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Asymptotic Complexity Profile -->
+                    <div class="card spec-card">
+                        <div class="terminal-bar-top">
+                            <div class="terminal-bar-dots"><span class="dot green"></span></div>
+                            <div class="terminal-bar-title font-mono">SPEC_02 // ASYMPTOTIC_COMPLEXITY</div>
+                        </div>
+                        <div class="card-header">
+                            <h2>Time &amp; Space Complexity Analysis</h2>
+                        </div>
+                        <div class="card-body">
+                            <table class="spec-table font-mono">
+                                <thead>
+                                    <tr>
+                                        <th>OPERATION</th>
+                                        <th>BEST CASE</th>
+                                        <th>WORST CASE</th>
+                                        <th>AUX SPACE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Insert at Head</td>
+                                        <td><span class="complexity-badge o1">O(1)</span></td>
+                                        <td><span class="complexity-badge o1">O(1)</span></td>
+                                        <td><span class="complexity-badge o1">O(1)</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Append at Tail</td>
+                                        <td><span class="complexity-badge on">O(n)</span></td>
+                                        <td><span class="complexity-badge on">O(n)</span></td>
+                                        <td><span class="complexity-badge o1">O(1)</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Linear Search (strcasecmp)</td>
+                                        <td><span class="complexity-badge o1">O(1)</span></td>
+                                        <td><span class="complexity-badge on">O(n)</span></td>
+                                        <td><span class="complexity-badge o1">O(1)</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Delete Node (by ID)</td>
+                                        <td><span class="complexity-badge o1">O(1)</span></td>
+                                        <td><span class="complexity-badge on">O(n)</span></td>
+                                        <td><span class="complexity-badge o1">O(1)</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>In-Place Alphabetical Sort</td>
+                                        <td><span class="complexity-badge on">O(n)</span></td>
+                                        <td><span class="complexity-badge on2">O(n²)</span></td>
+                                        <td><span class="complexity-badge o1">O(1)</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p class="text-secondary mt-2 font-mono text-sm">Bubble Sort achieves in-place swapping with zero aux memory allocation O(1), maintaining pointer link integrity.</p>
+                        </div>
+                    </div>
+
+                    <!-- End-to-End System Schematic -->
+                    <div class="card spec-card full-width">
+                        <div class="terminal-bar-top">
+                            <div class="terminal-bar-dots"><span class="dot green"></span></div>
+                            <div class="terminal-bar-title font-mono">SPEC_03 // PIPELINE_TOPOLOGY_SCHEMATIC</div>
+                        </div>
+                        <div class="card-header">
+                            <h2>Full-Stack C + Web Architecture Flow</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="schematic-terminal font-mono">
++-------------------------+          HTTP / REST (JSON)         +----------------------------------+
+|   WEB FRONTEND CLIENT   | &lt;=================================&gt; |   C NATIVE POSIX SOCKET SERVER   |
+|   Vanilla HTML5/CSS/JS  |       Port 8080 (socket/bind)        |   server.c // Multi-thread ready |
++-------------------------+                                     +----------------------------------+
+                                                                                  |
+                                                                    Direct Pointer Function Calls
+                                                                                  |
+                                                                                  v
++-------------------------+      Dynamic malloc() / free()      +----------------------------------+
+|   NON-VOLATILE STORAGE  | &lt;---------------------------------- |   SINGLY LINKED LIST CORE (C)    |
+|   contacts.csv (POSIX)  |         Immediate File Sync         |   contact.c // struct Contact    |
++-------------------------+                                     +----------------------------------+
+                            </div>
+
+                            <div class="feature-grid">
+                                <div class="feature-box">
+                                    <div class="feature-num font-mono">01 // HEAP_ALLOC</div>
+                                    <h4>Strict Dynamic Allocation</h4>
+                                    <p class="text-secondary">Nodes are dynamically allocated via <code>malloc(sizeof(struct Contact))</code> and released via <code>free()</code> upon deletion or shutdown, ensuring zero memory leaks.</p>
+                                </div>
+                                <div class="feature-box">
+                                    <div class="feature-num font-mono">02 // IN_PLACE_SORT</div>
+                                    <h4>In-Place C Bubble Sort</h4>
+                                    <p class="text-secondary">Alphabetical sorting executes directly in C by traversing pointer links and swapping node payloads without reallocating or breaking chain integrity.</p>
+                                </div>
+                                <div class="feature-box">
+                                    <div class="feature-num font-mono">03 // CSV_PERSISTENCE</div>
+                                    <h4>Non-Volatile Disk Sync</h4>
+                                    <p class="text-secondary">The system maintains non-volatile persistence via <code>contacts.csv</code>. Any mutation (add, edit, delete, sort) immediately synchronizes with disk storage.</p>
+                                </div>
+                                <div class="feature-box">
+                                    <div class="feature-num font-mono">04 // ZERO_DEPENDENCY</div>
+                                    <h4>Native POSIX Networking</h4>
+                                    <p class="text-secondary">A lightweight HTTP/REST server built in C using POSIX socket primitives (<code>sys/socket.h</code>) bridges low-level memory operations to the browser with zero external libraries.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Retro System Footer -->
+            <footer class="app-footer font-mono">
+                <div class="footer-left">
+                    <span class="footer-chip">NEXUS//CONTACT</span>
+                    <span class="footer-meta">KERNEL: C99_SLL // MEM_BLOCK: 144B // SERVER: POSIX_HTTP</span>
+                </div>
+                <div class="footer-right">
+                    <span>STATUS: ALL_SYSTEMS_NOMINAL</span>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Contact Modal (Add / Edit) - Retro Cyber Terminal Style -->
+    <div id="contact-modal" class="modal-backdrop" style="display: none;">
+        <div class="modal-dialog">
+            <div class="terminal-bar-top">
+                <div class="terminal-bar-dots">
+                    <span class="dot red" onclick="closeContactModal()"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-bar-title font-mono">SYS_DIALOG // HEAP_NODE_OPERATION</div>
+                <button class="modal-close-btn font-mono" onclick="closeContactModal()">&times;</button>
+            </div>
+            
+            <div class="modal-header">
+                <div class="modal-title-wrap">
+                    <div class="modal-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                            <line x1="12" y1="8" x2="12" y2="16"></line>
+                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h3 id="modal-title" class="font-mono">ADD NEW CONTACT</h3>
+                </div>
+            </div>
+
+            <form id="contact-form" onsubmit="handleFormSubmit(event)">
+                <input type="hidden" id="form-contact-id" value="">
+                
+                <div class="modal-body font-mono">
+                    <div class="form-group">
+                        <label for="form-name">&gt; FIELD: FULL_NAME <span class="required">*</span></label>
+                        <input type="text" id="form-name" class="form-control" placeholder="e.g. Elena Rostova" required maxlength="49">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="form-phone">&gt; FIELD: PHONE_NUMBER <span class="required">*</span></label>
+                        <input type="text" id="form-phone" class="form-control font-mono" placeholder="e.g. +1-555-019-2834" required maxlength="19">
+                        <span class="field-hint">// String storage preserves leading zeros &amp; symbols. Must be unique.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="form-email">&gt; FIELD: EMAIL_ADDRESS</label>
+                        <input type="email" id="form-email" class="form-control" placeholder="e.g. elena.rostova@cyber.net" maxlength="59">
+                    </div>
+                </div>
+
+                <div class="modal-footer font-mono">
+                    <button type="button" class="btn btn-secondary" onclick="closeContactModal()">[ ABORT ]</button>
+                    <button type="submit" class="btn btn-primary" id="btn-save-contact">[ COMMIT ALLOCATION ]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal - Vivid Red Warning Terminal -->
+    <div id="delete-modal" class="modal-backdrop" style="display: none;">
+        <div class="modal-dialog modal-sm modal-danger">
+            <div class="terminal-bar-top danger-bar">
+                <div class="terminal-bar-dots">
+                    <span class="dot red" onclick="closeDeleteModal()"></span>
+                </div>
+                <div class="terminal-bar-title font-mono text-danger">SYS_ALERT // DEALLOCATION_CONFIRMATION</div>
+                <button class="modal-close-btn font-mono" onclick="closeDeleteModal()">&times;</button>
+            </div>
+
+            <div class="modal-header">
+                <div class="modal-title-wrap">
+                    <div class="modal-icon danger">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                        </svg>
+                    </div>
+                    <h3 class="font-mono text-danger">CONFIRM PURGE</h3>
+                </div>
+            </div>
+
+            <div class="modal-body font-mono">
+                <p>Are you sure you want to purge contact node <strong id="delete-contact-name" class="text-white"></strong>?</p>
+                <div class="warning-callout font-mono">
+                    [!] ACTION IRREVERSIBLE: Node will be unlinked from the forward chain and 144 bytes released via free().
+                </div>
+            </div>
+
+            <div class="modal-footer font-mono">
+                <button type="button" class="btn btn-secondary" onclick="closeDeleteModal()">[ CANCEL ]</button>
+                <button type="button" class="btn btn-danger" id="btn-confirm-delete" onclick="confirmDelete()">[ CONFIRM PURGE ]</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Retro Terminal Toast Notification Container -->
+    <div id="toast-container" class="toast-container font-mono"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

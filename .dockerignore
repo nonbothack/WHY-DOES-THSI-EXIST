@@ -1,0 +1,5 @@
+.git
+*.o
+contact_app
+test_contact
+test_contacts.csv
