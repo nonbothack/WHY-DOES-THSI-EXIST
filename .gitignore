@@ -1,0 +1,8 @@
+# Compiled binaries
+contact_app
+test_contact
+*.o
+*.so
+
+# Test CSVs
+test_contacts.csv
